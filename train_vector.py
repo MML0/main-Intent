@@ -144,7 +144,7 @@ lr=0.003
 
 best_loss +=0.00000000000001
 rv= 0
-for i in range(1000):
+for i in range(100000):
     #print(i)
     
     layer1.weights += rv * np.random.rand(1332,100)-rv/2
