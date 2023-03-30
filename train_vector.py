@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import random , os #, cv2  , time 
+import random , os , time#, cv2   
 
 model_name_save = '10x20-4l'
 model_name_load = '10x20-4l'
@@ -140,11 +140,12 @@ best_layer3_biases  = layer3.biases.copy()
 best_layer4_weights = layer4.weights.copy()
 best_layer4_biases  = layer4.biases.copy() 
 
-lr=0.003
+lr=0.0003
 
 best_loss +=0.00000000000001
 rv= 0
-for i in range(100000):
+time_s = time.time()
+for i in range(2000):
     #print(i)
     
     layer1.weights += rv * np.random.rand(1332,100)-rv/2
@@ -175,7 +176,7 @@ for i in range(100000):
     #acc = np.mean(predictions==y)
     #print(predictions)
     
-    loss = loss_function.calculate(layer4.output,y)
+    loss = loss_function.forward(layer4.output,y)
     #print('loss : ',loss , rv)
     
     if loss<best_loss:
@@ -203,8 +204,8 @@ for i in range(100000):
         layer3.biases  = best_layer3_biases.copy()
         layer4.weights = best_layer4_weights.copy()
         layer4.biases  = best_layer4_biases.copy()
-    if i %200==0:
-        print(i,'   rv : ' , rv)
+    if i %100==0:
+        print(i,'   rv : ' , rv , 'time: ',(time.time()-time_s))
     
     
     
